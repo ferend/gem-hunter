@@ -3,7 +3,7 @@ import { gameOptions } from "../gameOptions";
 export default class MainScene extends Phaser.Scene {
 
   private engine : Engine;
-  private canPick : boolean;
+  //private canPick : boolean;
   private dragging : boolean;
   private poolArray : any;
   private swappingGems : number;
@@ -16,7 +16,7 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.engine = new Engine({rows: 7, columns: 6, items: 6});
     this.engine.generateField();
-    this.canPick = true;
+    //this.canPick = true;
     this.dragging = false;
     this.createField();
     this.input.on("pointerdown", this.pickGem, this);
@@ -35,7 +35,7 @@ export default class MainScene extends Phaser.Scene {
   };
 
   private pickGem(pointer) : void {
-    if(this.canPick){
+    //if(this.canPick){
       this.dragging = true;
       let row = Math.floor((pointer.y - gameOptions.boardOffset.y) / gameOptions.gemSize);
       let col = Math.floor((pointer.x - gameOptions.boardOffset.x) / gameOptions.gemSize);
@@ -65,13 +65,13 @@ export default class MainScene extends Phaser.Scene {
               }
           }
       }
-  }
+  //}
   };
 
   private swapGems(row, col, row2, col2, swapBack) : void {
     let movements = this.engine.swapItems(row, col, row2, col2);
     this.swappingGems = 2;
-    this.canPick = false;
+    //this.canPick = false;
     movements.forEach((movement) => {
         this.tweens.add({
             targets: this.engine.customDataOf(movement.row, movement.column),
@@ -79,7 +79,7 @@ export default class MainScene extends Phaser.Scene {
             y: this.engine.customDataOf(movement.row, movement.column).y + gameOptions.gemSize * movement.deltaRow,
             duration: gameOptions.swapSpeed,
             callbackScope: this,
-            onComplete: () =>{
+            onComplete: () => {
                 this.swappingGems --;
                 if(this.swappingGems == 0){
                     if(!this.engine.matchInBoard()){
@@ -87,7 +87,7 @@ export default class MainScene extends Phaser.Scene {
                             this.swapGems(row, col, row2, col2, false);
                         }
                         else{
-                            this.canPick = true;
+                            //this.canPick = true;
                         }
                     }
                     else{
@@ -146,10 +146,10 @@ export default class MainScene extends Phaser.Scene {
     replenishMovements.forEach((movement) => {
       moved ++;
       let sprite = this.poolArray.pop();
-      //sprite.alpha = 1;
-      //sprite.y = gameOptions.boardOffset.y + gameOptions.gemSize * (movement.row - movement.deltaRow + 1) - gameOptions.gemSize / 2;
-      //sprite.x = gameOptions.boardOffset.x + gameOptions.gemSize * movement.column + gameOptions.gemSize / 2,
-      //sprite.setFrame(this.engine.valueAt(movement.row, movement.column));
+      sprite.alpha = 1;
+      sprite.y = gameOptions.boardOffset.y + gameOptions.gemSize * (movement.row - movement.deltaRow + 1) - gameOptions.gemSize / 2;
+      sprite.x = gameOptions.boardOffset.x + gameOptions.gemSize * movement.column + gameOptions.gemSize / 2,
+      sprite.setFrame(this.engine.valueAt(movement.row, movement.column));
       this.engine.setCustomData(movement.row, movement.column, sprite);
       this.tweens.add({
           targets: sprite,
@@ -169,12 +169,12 @@ export default class MainScene extends Phaser.Scene {
   private endOfMove() : void {
     if(this.engine.matchInBoard()){
       this.time.addEvent({
-          delay: 300,
+          delay: 200,
           callback: () => this.handleMatches(),
       });
   }
   else{
-      this.canPick = true;
+      //this.canPick = true;
       this.selectedGem = null;
   }
   }
