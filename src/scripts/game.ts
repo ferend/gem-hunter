@@ -28,28 +28,15 @@ const config = {
 
 window.addEventListener('load', () => {
   const game = new Phaser.Game(config)
-})
+  resizeCanvas(game);
+});
 
-/*
-window.onload = function() {
-  window.focus()
+function resizeCanvas(game: any): void {
+  const resize = () => {
+    game.renderer.resize(window.innerWidth, window.innerHeight);
+  };
+
   resize();
-  window.addEventListener("resize", resize, false);
-}
 
- function resize()  {
- 
-  var windowWidth = window.innerWidth;
-  var windowHeight = window.innerHeight;
-  var windowRatio = windowWidth / windowHeight;
-  var gameRatio = DEFAULT_WIDTH / DEFAULT_HEIGHT;
-  if(windowRatio < gameRatio){
-      canvas.style.width = windowWidth + "px";
-      canvas.style.height = (windowWidth / gameRatio) + "px";
-  }
-  else{
-      canvas.style.width = (windowHeight * gameRatio) + "px";
-      canvas.style.height = windowHeight + "px";
-  }
+  window.addEventListener("resize", resize);
 }
-*/
