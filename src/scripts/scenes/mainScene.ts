@@ -1,4 +1,4 @@
-import Engine from "../objects/engine";
+import Engine from "../core/engine";
 import { gameOptions } from "../gameOptions";
 export default class MainScene extends Phaser.Scene {
 
