@@ -143,26 +143,26 @@ export default class Engine {
   // removes all items forming a match
   removeMatches(): void {
     let matches = this.getMatchList();
-    matches.forEach(element => {
-        this.setEmpty(element.row, element.column);
+    matches.forEach( (item) => {
+        this.setEmpty(item.row, item.column);
     });
-  }
+  };
 
   // return the items part of a match in the board as an array of {row, column} object
-  getMatchList(): any  {
-    let matches = new Array();
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.columns; j++) {
-        if (this.isPartOfMatch(i, j)) {
-          matches.push({
-            row: i,
-            column: j,
-          });
+  public getMatchList(): any  {
+    let matches : any[] = [];
+    for(let i = 0; i < this.rows; i ++){
+        for(let j = 0; j < this.columns; j ++){
+            if(this.isPartOfMatch(i, j)){
+                matches.push({
+                    row: i,
+                    column: j
+                });
+            }
         }
-      }
     }
     return matches;
-  }
+  };
 
   // set the item at (row, column) as empty
   private setEmpty(row, column): void {
