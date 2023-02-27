@@ -1,27 +1,34 @@
-import PhaserLogo from '../objects/phaserLogo'
-import FpsText from '../objects/fpsText'
-
+import Engine from "../objects/engine";
+import { gameOptions } from "../gameOptions";
 export default class MainScene extends Phaser.Scene {
-  fpsText
+
+  private engine : Engine;
+  private canPick : boolean;
+  private dragging : boolean;
+  private poolArray : any;
 
   constructor() {
     super({ key: 'MainScene' })
   }
 
   create() {
-    new PhaserLogo(this, this.cameras.main.width / 2, 0)
-    this.fpsText = new FpsText(this)
-
-    // display the Phaser.VERSION
-    this.add
-      .text(this.cameras.main.width - 15, 15, `Phaser v${Phaser.VERSION}`, {
-        color: '#000000',
-        fontSize: '24px'
-      })
-      .setOrigin(1, 0)
+    this.engine = new Engine({rows: 8, columns: 8, items: 5});
+    this.engine.generateField();
+    this.canPick = true;
+    this.dragging = false;
+    this.createField();
   }
 
-  update() {
-    this.fpsText.update()
+  createField() : void {
+    this.poolArray = [];
+    for(let i = 0; i < this.engine.getRowNumber(); i ++){
+      for(let j = 0; j < this.engine.getColumnNumber(); j ++){
+          let gemX = gameOptions.boardOffset.x + gameOptions.gemSize * j + gameOptions.gemSize / 2;
+          let gemY = gameOptions.boardOffset.y + gameOptions.gemSize * i + gameOptions.gemSize / 2
+          let gem = this.add.sprite(gemX, gemY, "spritesheet", this.engine.valueAt(i, j));
+          this.engine.setCustomData(i, j, gem);
+      }
   }
+  };
 }
+
