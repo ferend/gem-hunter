@@ -10,6 +10,7 @@ export default class PauseScene extends BaseScene {
     super.create();
     this.gamePausedText();
     this.continueGameText();
+    this.returnToMenuText();
   }
 
   private gamePausedText(): Phaser.GameObjects.Text {
@@ -35,6 +36,21 @@ export default class PauseScene extends BaseScene {
     text.on("pointerup", () => {
       this.scene.resume("MainScene");
       this.scene.stop();
+    });
+  }
+
+  private returnToMenuText(): void {
+    var text = this.add
+      .text(config.scale.width / 2, config.scale.height / 2 + 300, "Menu", {
+        fontSize: "40px",
+        color: "#ffffff",
+        fontFamily: "Trebuchet MS",
+      })
+      .setOrigin(0.5)
+      .setScale(1);
+    text.setInteractive();
+    text.on("pointerup", () => {
+        window.location.reload();
     });
   }
 }

@@ -53,6 +53,7 @@ export default class MainScene extends BaseScene{
         this.physics.pause();
         // Rather than using scene.start I used scene.launch in here, start shuts down current scene and loads new one.
         this.scene.launch('PauseScene');
+        this.events.emit('save');
     });
 }
 
@@ -215,5 +216,6 @@ export default class MainScene extends BaseScene{
       this.selectedGem = null;
   }
   }
+
 
 };
