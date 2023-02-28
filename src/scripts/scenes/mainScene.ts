@@ -1,7 +1,8 @@
 import Engine from "../core/engine";
 import { gameOptions } from "../config/gameOptions";
 import Gem from "../prefabs/gem";
-export default class MainScene extends Phaser.Scene {
+import BaseScene from "./baseScene";
+export default class MainScene extends BaseScene{
 
   private engine : Engine;
   //private canPick : boolean;
@@ -11,10 +12,11 @@ export default class MainScene extends Phaser.Scene {
   private selectedGem : any;
 
   constructor() {
-    super({ key: 'MainScene' })
+    super({key: "MainScene"})
   }
 
   create() {
+    super.create();
     this.engine = new Engine({rows: 7, columns: 6, items: 6});
     this.engine.generateField();
     //this.canPick = true;
