@@ -22,8 +22,8 @@ export default class BaseScene extends Phaser.Scene {
     var bgConfig = {
         key: "bgAnimation",
         frames: this.anims.generateFrameNumbers("bg", {
-          start: 0,
-          end: 15,
+          start: 15,
+          end: 0,
           first: 0
         }),
         frameRate: 2,

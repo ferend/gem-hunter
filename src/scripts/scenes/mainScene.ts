@@ -2,6 +2,8 @@ import Engine from "../core/engine";
 import { gameOptions } from "../config/gameOptions";
 import Gem from "../prefabs/gem";
 import BaseScene from "./baseScene";
+import Player from "../prefabs/player";
+import { config } from "../config/config";
 export default class MainScene extends BaseScene{
 
   private engine : Engine;
@@ -10,6 +12,8 @@ export default class MainScene extends BaseScene{
   private poolArray : any;
   private swappingGems : number;
   private selectedGem : any;
+  private player : Player;
+  private scoreText : Phaser.GameObjects.Text;
 
   constructor() {
     super({key: "MainScene"})
@@ -23,6 +27,16 @@ export default class MainScene extends BaseScene{
     this.dragging = false;
     this.createField();
     this.input.on("pointerdown", this.pickGem, this);
+    this.createScoreText();
+    this.player = new Player(this, this.scoreText);
+  }
+
+  private createScoreText() : void {
+    this.scoreText = this.add.text(config.scale.width / 2, config.scale.width / 2 - 220, 'Score: 0', { 
+        fontSize: '32px', 
+        color: '#ffffff',
+        fontFamily: 'Trebuchet MS',
+    }).setOrigin(0.5);
   }
 
   private createField() : void {
@@ -121,7 +135,10 @@ export default class MainScene extends BaseScene{
                     }
                 }
             });
+            if(destroyed === 0) return;
+            this.events.emit('chatsubo');
     });
+
   };
 
   private makeGemsFall() : void {
