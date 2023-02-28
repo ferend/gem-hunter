@@ -1,5 +1,6 @@
 import MainScene from '../scenes/mainScene'
 import PreloadScene from '../scenes/preloadScene'
+import PauseScene from '../scenes/pauseScene'
 import MenuScene
  from '../scenes/menuScene'
 const DEFAULT_WIDTH = 720
@@ -16,7 +17,7 @@ export const config = {
       width: DEFAULT_WIDTH,
       height: DEFAULT_HEIGHT
     },
-    scene: [PreloadScene, MainScene, MenuScene],
+    scene: [PreloadScene, MainScene, MenuScene, PauseScene],
     physics: {
       default: 'arcade',
       arcade: {

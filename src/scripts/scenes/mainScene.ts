@@ -29,15 +29,32 @@ export default class MainScene extends BaseScene{
     this.input.on("pointerdown", this.pickGem, this);
     this.createScoreText();
     this.player = new Player(this, this.scoreText);
+    this.pauseButton();
   }
 
   private createScoreText() : void {
-    this.scoreText = this.add.text(config.scale.width / 2, config.scale.width / 2 - 220, 'Score: 0', { 
-        fontSize: '32px', 
+    this.scoreText = this.add.text(config.scale.width / 2, config.scale.height / 2 - 500, 'Score: 0', { 
+        fontSize: '40px', 
         color: '#ffffff',
         fontFamily: 'Trebuchet MS',
     }).setOrigin(0.5);
   }
+
+  private pauseButton() : void{
+    const button = this.add.text(config.scale.width / 2 - 240, config.scale.height / 2 - 500, 'PAUSE', {
+        fontSize: '32px',
+        fontStyle: 'bold', 
+        color: '#ffffff',
+    })
+        .setOrigin(0.5)
+        .setInteractive();
+    button.on('pointerdown', () => {
+        this.scene.pause();
+        this.physics.pause();
+        // Rather than using scene.start I used scene.launch in here, start shuts down current scene and loads new one.
+        this.scene.launch('PauseScene');
+    });
+}
 
   private createField() : void {
     this.poolArray = new Array();

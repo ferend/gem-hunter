@@ -1,14 +1,8 @@
 import BaseScene from "./baseScene";
 import { config } from "../config/config";
 export default class MenuScene extends BaseScene {
-    private menu : any;
   constructor() {
     super({ key: "MenuScene" });
-    this.menu = [
-        {scene : 'PlayScene',text :'Play'},
-        {scene : 'ScoreScene',text :'Leaderboard'},
-        {scene : null, text :'Exit'}
-    ]
   }
 
   create() {
@@ -22,7 +16,7 @@ export default class MenuScene extends BaseScene {
       .text(config.scale.width / 2, config.scale.height / 2, "Gem Hunter", {
         fontSize: "64px",
         color: "#ffffff",
-        fontFamily: 'Trebuchet MS', 
+        fontFamily: "Trebuchet MS",
       })
       .setOrigin(0.5);
   }
@@ -32,7 +26,7 @@ export default class MenuScene extends BaseScene {
       .text(config.scale.width / 2, config.scale.height / 2 + 150, "Play", {
         fontSize: "40px",
         color: "#ffffff",
-        fontFamily: 'Trebuchet MS', 
+        fontFamily: "Trebuchet MS",
       })
       .setOrigin(0.5)
       .setScale(1)
