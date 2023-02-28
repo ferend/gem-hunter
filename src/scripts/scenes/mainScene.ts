@@ -1,5 +1,6 @@
 import Engine from "../core/engine";
-import { gameOptions } from "../gameOptions";
+import { gameOptions } from "../config/gameOptions";
+import Gem from "../prefabs/gem";
 export default class MainScene extends Phaser.Scene {
 
   private engine : Engine;
@@ -28,7 +29,7 @@ export default class MainScene extends Phaser.Scene {
       for(let j = 0; j < this.engine.getColumnNumber(); j ++){
           let gemX = gameOptions.boardOffset.x + gameOptions.gemSize * j + gameOptions.gemSize / 2;
           let gemY = gameOptions.boardOffset.y + gameOptions.gemSize * i + gameOptions.gemSize / 2
-          let gem = this.add.sprite(gemX, gemY, "spritesheet", this.engine.valueAt(i, j));
+          let gem = new Gem(this, gemX, gemY, "spritesheet", this.engine.valueAt(i, j));
           this.engine.setCustomData(i, j, gem);
       }
   }

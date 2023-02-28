@@ -1,5 +1,5 @@
-import MainScene from './scenes/mainScene'
-import PreloadScene from './scenes/preloadScene'
+import MainScene from '../scenes/mainScene'
+import PreloadScene from '../scenes/preloadScene'
 
 const DEFAULT_WIDTH = 720
 const DEFAULT_HEIGHT = 1280
