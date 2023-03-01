@@ -24,6 +24,7 @@ export default class Player {
     }
 
     private savePlayerScoreToLocal() : void {
+        if(this.currentScore === 0) return;
         localStorage.setItem('playerScore', this.currentScore.toString());
     }
 

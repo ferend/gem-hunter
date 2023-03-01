@@ -4,6 +4,7 @@ import Gem from "../prefabs/gem";
 import BaseScene from "./baseScene";
 import Player from "../prefabs/player";
 import { config } from "../config/config";
+import GameTimer from "../prefabs/gameTimer";
 export default class MainScene extends BaseScene{
 
   private engine : Engine;
@@ -14,6 +15,7 @@ export default class MainScene extends BaseScene{
   private selectedGem : any;
   private player : Player;
   private scoreText : Phaser.GameObjects.Text;
+  private gameTimer : GameTimer;
 
   constructor() {
     super({key: "MainScene"})
@@ -30,6 +32,7 @@ export default class MainScene extends BaseScene{
     this.createScoreText();
     this.player = new Player(this, this.scoreText);
     this.pauseButton();
+    this.gameTimer = new GameTimer(this, gameOptions.gameDuration);
   }
 
   private createScoreText() : void {
