@@ -137,30 +137,28 @@ export default class MainScene extends BaseScene{
     });
   };
 
-  private handleMatches() : void {
-    let gemsToRemove = this.engine.getMatchList();
-    let destroyed = 0;
-
-    gemsToRemove.forEach((gem) => {
-      this.poolArray.push(this.engine.customDataOf(gem.row, gem.column))
-            destroyed ++;
+    private handleMatches(): void {
+        let gemsToRemove = this.engine.getMatchList();
+        let destroyed = gemsToRemove.length;
+        if (destroyed === 0) return;
+        gemsToRemove.forEach((gem) => {
+            this.poolArray.push(this.engine.customDataOf(gem.row, gem.column));
             this.tweens.add({
                 targets: this.engine.customDataOf(gem.row, gem.column),
                 alpha: 0,
                 duration: gameOptions.destroySpeed,
                 callbackScope: this,
-                onComplete: () =>{
-                    destroyed --;
-                    if(destroyed == 0){
+                onComplete: () => {
+                    destroyed--;
+                    this.events.emit('chatsubo');
+                    if (destroyed === 0) {
                         this.makeGemsFall();
                     }
                 }
             });
-            if(destroyed === 0) return;
-            this.events.emit('chatsubo');
-    });
+        });
+    }
 
-  };
 
   private makeGemsFall() : void {
     let moved = 0;
@@ -177,7 +175,7 @@ export default class MainScene extends BaseScene{
           onComplete: () =>{
               moved --;
               if(moved == 0){
-                  endOfMove;
+                  this.endOfMove();
               }
           }
       })

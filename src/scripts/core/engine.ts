@@ -14,6 +14,7 @@ export default class Engine {
   public generateField(): void {
     this.gameArray = new Array();
     this.selectedItem = false;
+    let attempts = 0;
     for (let i = 0; i < this.rows; i++) {
       this.gameArray[i] = [];
       for (let j = 0; j < this.columns; j++) {
@@ -25,6 +26,8 @@ export default class Engine {
             row: i,
             column: j,
           };
+          attempts++;
+          if (attempts > 100) break;
         } while (this.isPartOfMatch(i, j));
       }
     }
@@ -121,9 +124,10 @@ export default class Engine {
 
   // swap the items at (row, column) and (row2, column2) and returns an object with movement information
   public swapItems(row, column, row2, column2): any {
-    let tempObject = Object.assign(this.gameArray[row][column]);
-    this.gameArray[row][column] = Object.assign(this.gameArray[row2][column2]);
-    this.gameArray[row2][column2] = Object.assign(tempObject);
+    const temp = this.gameArray[row][column];
+    this.gameArray[row][column] = this.gameArray[row2][column2];
+    this.gameArray[row2][column2] = temp;
+
     return [
       {
         row: row,
